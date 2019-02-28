@@ -132,4 +132,17 @@ class UsersController extends Controller
 		return redirect()->route('users.show', [$user]);
 	}
 
+	public function followings(User $user)
+	{
+		$users = $user->followings()->paginate(30);
+		$title = $user->name . '关注的人';
+		return view('users.show_follow', compact('users', 'title'));
+	}
+
+	public function followers(User $user)
+	{
+		$user = $user->followers()->paginate(30);
+		$title = $user->name . '的粉丝';
+		return view('users.show_follow',compact('user','title'));
+	}
 }
